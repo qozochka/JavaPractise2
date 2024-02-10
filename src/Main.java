@@ -5,87 +5,88 @@ public class Main {
         ArrayList<MailingAddress> container = new ArrayList<>();
         while (true){
             int flag = navigate();
-            switch (flag) {
-                case 5:
-                    int choice22 = navigateForListOfOrdersToSort(container.size());
-                    switch (choice22){
+            if (flag > 0 && flag < 7) {
+                switch (flag) {
+                    case 5:
+                        int choice22 = navigateForListOfOrdersToSort(container.size());
+                        switch (choice22) {
 
-                        case 1:
-                            Comparator<MailingAddress> comparatorString1
-                                    = (p1, p2) -> p2.getName().compareTo(p1.getName());
-                            container.sort(comparatorString1);
-                            System.out.println("Заказы отсортированы.");
-                            break;
-                        case 2:
-                            Comparator<MailingAddress> comparatorString2
-                                    = (p1, p2) -> p2.getCity().compareTo(p1.getCity());
-                            container.sort(comparatorString2);
-                            System.out.println("Заказы отсортированы.");
-                            break;
-                        case 3:
-                            Comparator<MailingAddress> comparatorString3
-                                    = (p1, p2) -> p2.getStreet().compareTo(p1.getStreet());
-                            container.sort(comparatorString3);
-                            System.out.println("Заказы отсортированы.");
-                            break;
-                        case 4:
-                            Comparator<MailingAddress> comparator4 = Comparator.comparingInt(MailingAddress::getNumber);
-                            container.sort(comparator4);
-                            System.out.println("Заказы отсортированы.");
+                            case 1:
+                                Comparator<MailingAddress> comparatorString1
+                                        = (p1, p2) -> p2.getName().compareTo(p1.getName());
+                                container.sort(comparatorString1);
+                                System.out.println("Заказы отсортированы.");
+                                break;
+                            case 2:
+                                Comparator<MailingAddress> comparatorString2
+                                        = (p1, p2) -> p2.getCity().compareTo(p1.getCity());
+                                container.sort(comparatorString2);
+                                System.out.println("Заказы отсортированы.");
+                                break;
+                            case 3:
+                                Comparator<MailingAddress> comparatorString3
+                                        = (p1, p2) -> p2.getStreet().compareTo(p1.getStreet());
+                                container.sort(comparatorString3);
+                                System.out.println("Заказы отсортированы.");
+                                break;
+                            case 4:
+                                Comparator<MailingAddress> comparator4 = Comparator.comparingInt(MailingAddress::getNumber);
+                                container.sort(comparator4);
+                                System.out.println("Заказы отсортированы.");
+                                break;
+                            case 5:
+                                Comparator<MailingAddress> comparator5 = Comparator.comparingDouble(MailingAddress::getDistance);
+                                container.sort(comparator5);
+                                System.out.println("Заказы отсортированы.");
+                        }
                         break;
-                        case 5:
-                            Comparator<MailingAddress> comparator5 = Comparator.comparingDouble(MailingAddress::getDistance);
-                            container.sort(comparator5);
-                            System.out.println("Заказы отсортированы.");
-                    }
-                    break;
 
-                case 6:
-                    System.exit(0);
+                    case 6:
+                        System.exit(0);
 
-                case 1:
-                    container.add(new MailingAddress());
-                    System.out.println("Стандартный заказ успешно добавлен.");
-                    break;
+                    case 1:
+                        container.add(new MailingAddress());
+                        System.out.println("Стандартный заказ успешно добавлен.");
+                        break;
 
-                case 4:
-                    System.out.println("\n\n");
-                    for (int i = 1; i <= container.size(); i++) {
-                        System.out.printf("%s)------------------------\n%s", i, container.get(i - 1));
+                    case 4:
+                        System.out.println("\n\n");
+                        for (int i = 1; i <= container.size(); i++) {
+                            System.out.printf("%s)------------------------\n%s", i, container.get(i - 1));
 
-                    }
-                    System.out.println("\n\n");
-                    break;
-
-                case 3:
-                    System.out.println("\n");
-                    int choice23 = navigateForListOfOrders(container.size());
-                    if (choice23 > 0) {
-                        MailingAddress obj = container.get(choice23 - 1);
-                        System.out.printf("%s", obj);
-
-                        MailingAddress newObj = actionRedact(obj, container);
-                        if (newObj.getName().equals("---error---")){
-                            container.remove(newObj);
-                            break;
                         }
-                        container.set(choice23 - 1, newObj);
-                        if (container.get(choice23 - 1) != newObj) {
-                            System.out.println("Детали заказа изменены");
-                        }
-                    }
-                    break;
+                        System.out.println("\n\n");
+                        break;
 
-                case 2:
-                    MailingAddress newUser = action2();
-                    if (newUser.getNumber() >= 0 && newUser.getDistance() > 0){
-                        container.add(newUser);
-                        System.out.println("Заказ успешно добавлен.");
-                    }
-                    else {
-                        System.out.println("Неверный ввод, заказ отменен.");
-                    }
-                    break;
+                    case 3:
+                        System.out.println("\n");
+                        int choice23 = navigateForListOfOrders(container.size());
+                        if (choice23 > 0) {
+                            MailingAddress obj = container.get(choice23 - 1);
+                            System.out.printf("%s", obj);
+
+                            MailingAddress newObj = actionRedact(obj, container);
+                            if (newObj.getName().equals("---error---")) {
+                                container.remove(newObj);
+                                break;
+                            }
+                            container.set(choice23 - 1, newObj);
+                            if (container.get(choice23 - 1) != newObj) {
+                                System.out.println("Детали заказа изменены");
+                            }
+                        }
+                        break;
+
+                    case 2:
+                        MailingAddress newUser = action2();
+                        if (newUser.getNumber() >= 0 && newUser.getDistance() > 0) {
+                            container.add(newUser);
+                            System.out.println("Заказ успешно добавлен.");
+                        } else {
+                            System.out.println("Неверный ввод, заказ отменен.");
+                        }
+                        break;
+                }
             }
         }
     }
@@ -151,7 +152,7 @@ public class Main {
         return obj;
     }
 
-    public static int navigate(){
+    public static int navigate() {
         System.out.println("""
                 \n
                 1) Добавить заказ по умолчанию.
@@ -163,8 +164,15 @@ public class Main {
 
         System.out.print("Ввод: ");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        int value = -1;
+        if (scanner.hasNextInt()) {
+            value = scanner.nextInt();
+            System.out.println("Вы ввели: " + value);
+            return value;
+        }
+        return value;
     }
+
 
     public static int navigateForListOfOrders(int containerLen){
         System.out.print("0 - выйти\nВвод: ");
@@ -189,9 +197,9 @@ public class Main {
                          0 - выйти
                          1) Сортировать по Имени.
                          2) Сортировать по Городу.
-                         1) Сортировать по Улице.
-                         1) Сортировать по Номеру дома.
-                         1) Сортировать по Расстоянию.
+                         3) Сортировать по Улице.
+                         4) Сортировать по Номеру дома.
+                         5) Сортировать по Расстоянию.
                          Ввод:""");
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
