@@ -67,10 +67,8 @@ public class Main {
                         MailingAddress newObj = actionRedact(obj, container);
                         if (newObj.getName().equals("---error---")){
                             container.remove(newObj);
-                            System.out.println("Заказ удален");
                             break;
                         }
-                        System.out.printf("%s00000", choice23); /////////////////////&&&&&&&&&&&
                         container.set(choice23 - 1, newObj);
                         if (container.get(choice23 - 1) != newObj) {
                             System.out.println("Детали заказа изменены");
