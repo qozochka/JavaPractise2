@@ -27,8 +27,9 @@ public class MailingAddress {
         return  "Получатель: " + name
                 + "\nГород: " + city
                 + "\nУлица: " + street
-                + "\nДом: " + number
-                + "\nРасстояние от филиала: " + distance + "км\n";
+                + "\nДом: " + this.getNumber()
+                + "\nРасстояние от филиала: " + distance + "км"
+                + "\nПримерное время ожидания: " + this.getTime() + "\n";
     }
 
     public String getName(){
@@ -72,7 +73,7 @@ public class MailingAddress {
     }
 
     public int getTime(){
-        return (int) (2 + (distance / 10));
+        return (int) (2 + (this.distance / 10));
     }
 
 //    static ArrayList<MailingAddress> getContainer(){

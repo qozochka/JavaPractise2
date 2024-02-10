@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,6 +6,39 @@ public class Main {
         while (true){
             int flag = navigate();
             switch (flag) {
+                case 5:
+                    int choice22 = navigateForListOfOrdersToSort(container.size());
+                    switch (choice22){
+
+                        case 1:
+                            Comparator<MailingAddress> comparatorString1
+                                    = (p1, p2) -> p2.getName().compareTo(p1.getName());
+                            container.sort(comparatorString1);
+                            System.out.println("Заказы отсортированы.");
+                            break;
+                        case 2:
+                            Comparator<MailingAddress> comparatorString2
+                                    = (p1, p2) -> p2.getCity().compareTo(p1.getCity());
+                            container.sort(comparatorString2);
+                            System.out.println("Заказы отсортированы.");
+                            break;
+                        case 3:
+                            Comparator<MailingAddress> comparatorString3
+                                    = (p1, p2) -> p2.getStreet().compareTo(p1.getStreet());
+                            container.sort(comparatorString3);
+                            System.out.println("Заказы отсортированы.");
+                            break;
+                        case 4:
+                            Comparator<MailingAddress> comparator4 = Comparator.comparingInt(MailingAddress::getNumber);
+                            container.sort(comparator4);
+                            System.out.println("Заказы отсортированы.");
+                        break;
+                        case 5:
+                            Comparator<MailingAddress> comparator5 = Comparator.comparingDouble(MailingAddress::getDistance);
+                            container.sort(comparator5);
+                            System.out.println("Заказы отсортированы.");
+                    }
+                    break;
 
                 case 6:
                     System.exit(0);
@@ -28,9 +59,9 @@ public class Main {
 
                 case 3:
                     System.out.println("\n");
-                    int choice22 = navigateForListOfOrders(container.size());
-                    if (choice22 > 0) {
-                        MailingAddress obj = container.get(choice22 - 1);
+                    int choice23 = navigateForListOfOrders(container.size());
+                    if (choice23 > 0) {
+                        MailingAddress obj = container.get(choice23 - 1);
                         System.out.printf("%s", obj);
 
                         MailingAddress newObj = actionRedact(obj, container);
@@ -39,9 +70,9 @@ public class Main {
                             System.out.println("Заказ удален");
                             break;
                         }
-                        System.out.printf("%s00000", choice22); /////////////////////&&&&&&&&&&&
-                        container.set(choice22 - 1, newObj);
-                        if (container.get(choice22 - 1) != newObj) {
+                        System.out.printf("%s00000", choice23); /////////////////////&&&&&&&&&&&
+                        container.set(choice23 - 1, newObj);
+                        if (container.get(choice23 - 1) != newObj) {
                             System.out.println("Детали заказа изменены");
                         }
                     }
@@ -49,8 +80,13 @@ public class Main {
 
                 case 2:
                     MailingAddress newUser = action2();
-                    container.add(newUser);
-                    System.out.println("Заказ успешно добавлен.");
+                    if (newUser.getNumber() >= 0 && newUser.getDistance() > 0){
+                        container.add(newUser);
+                        System.out.println("Заказ успешно добавлен.");
+                    }
+                    else {
+                        System.out.println("Неверный ввод, заказ отменен.");
+                    }
                     break;
             }
         }
@@ -86,10 +122,20 @@ public class Main {
                             obj.setStreet(newValue);
                             break;
                         case 4:
-                            obj.setNumber(Integer.parseInt(newValue));
+                            if((Integer.parseInt(newValue) > 0) && (Integer.parseInt(newValue) % 10 == 0)) {
+                                obj.setNumber(Integer.parseInt(newValue));
+                            }
+                            else{
+                                System.out.println("Неверное значение, детали не изменены.");
+                            }
                             break;
                         case 5:
-                            obj.setDistance(Integer.parseInt(newValue));
+                            if(Integer.parseInt(newValue) > 0) {
+                                obj.setDistance(Integer.parseInt(newValue));
+                            }
+                            else{
+                                System.out.println("Неверное значение, детали не изменены.");
+                            }
                             break;
                     }
             }
@@ -101,7 +147,7 @@ public class Main {
                 return check;
             }
         }
-        catch (InputMismatchException | NumberFormatException | java.lang.IndexOutOfBoundsException e){
+        catch (InputMismatchException | NumberFormatException | IndexOutOfBoundsException e){
             System.out.println("Неверный ввод, заказ не изменен.");
         }
         return obj;
@@ -140,6 +186,30 @@ public class Main {
         }
     }
 
+    public static int navigateForListOfOrdersToSort(int containerLen){
+        System.out.print("""
+                         0 - выйти
+                         1) Сортировать по Имени.
+                         2) Сортировать по Городу.
+                         1) Сортировать по Улице.
+                         1) Сортировать по Номеру дома.
+                         1) Сортировать по Расстоянию.
+                         Ввод:""");
+        Scanner scanner = new Scanner(System.in);
+        String choice = scanner.nextLine();
+        try{
+            if (Integer.parseInt(choice) >= 0 && Integer.parseInt(choice) <= containerLen)
+                return Integer.parseInt(choice);
+            else {
+                System.out.println("Такого заказа нет.");
+                return -1;
+            }
+        }
+        catch (java.util.InputMismatchException e){
+            System.out.println("Неверный ввод");
+            return -1;
+        }
+    }
     public static MailingAddress action2(){
         Scanner scanner = new Scanner(System.in);
 
@@ -172,7 +242,3 @@ public class Main {
         return new MailingAddress(name, city, street, number, distance);
     }
 }
-
-
-
-// Теперь нужно будет сделать? ту функцию и внедрить ее, потом сделать сортировку
