@@ -1,9 +1,13 @@
 import java.util.*;
 
+/**
+ * @author ozerov_kirill
+ * @version 1.0
+ */
 public class Main {
     public static void main(String[] args) {
         ArrayList<MailingAddress> container = new ArrayList<>();
-        while (true){
+        while (true) {
             int flag = navigate();
             if (flag > 0 && flag < 7) {
                 switch (flag) {
@@ -43,6 +47,7 @@ public class Main {
 
                     case 6:
                         System.exit(0);
+                        break;
 
                     case 1:
                         container.add(new MailingAddress());
@@ -92,66 +97,70 @@ public class Main {
     }
 
 
+    /**
+     * @param obj       экземпляр - заказ
+     * @param container Массив, хранящий все заказы
+     * @return Измененный заказ
+     */
     public static MailingAddress actionRedact(MailingAddress obj, ArrayList<MailingAddress> container) {
         System.out.print(
                 """
-                \n
-                0) Удалить заказ.
-                1) Имя.
-                2) Город.
-                3) Улицу.
-                4) Номер дома.
-                5) Примерное расстояние.""" + "\nЧто хотите отредактировать: ");
+                        \n
+                        0) Удалить заказ.
+                        1) Имя.
+                        2) Город.
+                        3) Улицу.
+                        4) Номер дома.
+                        5) Примерное расстояние.""" + "\nЧто хотите отредактировать: ");
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
 
         try {
             int choice2 = Integer.parseInt(choice);
-            if (choice2 <= 6 && choice2 >= 1){
+            if (choice2 <= 6 && choice2 >= 1) {
                 System.out.println("Введите новое значение: ");
                 String newValue = scanner.nextLine();
-                    switch (choice2) {
-                        case 1:
-                            obj.setName(newValue);
-                            break;
-                        case 2:
-                            obj.setCity(newValue);
-                            break;
-                        case 3:
-                            obj.setStreet(newValue);
-                            break;
-                        case 4:
-                            if((Integer.parseInt(newValue) > 0) && (Integer.parseInt(newValue) % 10 == 0)) {
-                                obj.setNumber(Integer.parseInt(newValue));
-                            }
-                            else{
-                                System.out.println("Неверное значение, детали не изменены.");
-                            }
-                            break;
-                        case 5:
-                            if(Integer.parseInt(newValue) > 0) {
-                                obj.setDistance(Integer.parseInt(newValue));
-                            }
-                            else{
-                                System.out.println("Неверное значение, детали не изменены.");
-                            }
-                            break;
-                    }
-            }
-            else if (choice2 == 0 ){
+                switch (choice2) {
+                    case 1:
+                        obj.setName(newValue);
+                        break;
+                    case 2:
+                        obj.setCity(newValue);
+                        break;
+                    case 3:
+                        obj.setStreet(newValue);
+                        break;
+                    case 4:
+                        if ((Integer.parseInt(newValue) > 0)) {
+                            obj.setNumber(Integer.parseInt(newValue));
+                        } else {
+                            System.out.println("Неверное значение, детали не изменены.");
+                        }
+                        break;
+                    case 5:
+                        if (Double.parseDouble(newValue) > 0) {
+                            obj.setDistance(Double.parseDouble(newValue));
+                        } else {
+                            System.out.println("Неверное значение, детали не изменены.");
+                        }
+                        break;
+                }
+            } else if (choice2 == 0) {
                 container.remove(obj);
                 System.out.println("Заказ успешно удален");
                 MailingAddress check = new MailingAddress();
                 check.setName("---error---");
                 return check;
             }
-        }
-        catch (InputMismatchException | NumberFormatException | IndexOutOfBoundsException e){
-            System.out.println("Неверный ввод, заказ не изменен.");
+        } catch (InputMismatchException | NumberFormatException | IndexOutOfBoundsException e) {
+            System.out.println("Неверный ввод, заказ не изменен." + e);
         }
         return obj;
     }
 
+    /**
+     * @return Значение, указывающее на действие в меню.
+     */
     public static int navigate() {
         System.out.println("""
                 \n
@@ -174,49 +183,59 @@ public class Main {
     }
 
 
-    public static int navigateForListOfOrders(int containerLen){
+    /**
+     * @param containerLen Колличество заказов
+     * @return Выбор в промежуточном меню, либо "ошибка"
+     */
+    public static int navigateForListOfOrders(int containerLen) {
         System.out.print("0 - выйти\nВвод: ");
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
-        try{
+        try {
             if (Integer.parseInt(choice) >= 0 && Integer.parseInt(choice) <= containerLen)
                 return Integer.parseInt(choice);
             else {
                 System.out.println("Такого заказа нет.");
                 return -1;
             }
-        }
-        catch (java.util.InputMismatchException e){
+        } catch (java.util.InputMismatchException e) {
             System.out.println("Неверный ввод");
             return -1;
         }
     }
 
-    public static int navigateForListOfOrdersToSort(int containerLen){
+    /**
+     * @param containerLen Колличество заказов
+     * @return Выбор в промежуточном меню 2го уровня, либо "ошибка"
+     */
+    public static int navigateForListOfOrdersToSort(int containerLen) {
         System.out.print("""
-                         0 - выйти
-                         1) Сортировать по Имени.
-                         2) Сортировать по Городу.
-                         3) Сортировать по Улице.
-                         4) Сортировать по Номеру дома.
-                         5) Сортировать по Расстоянию.
-                         Ввод:""");
+                0 - выйти
+                1) Сортировать по Имени.
+                2) Сортировать по Городу.
+                3) Сортировать по Улице.
+                4) Сортировать по Номеру дома.
+                5) Сортировать по Расстоянию.
+                Ввод:""");
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
-        try{
+        try {
             if (Integer.parseInt(choice) >= 0 && Integer.parseInt(choice) <= containerLen)
                 return Integer.parseInt(choice);
             else {
                 System.out.println("Такого заказа нет.");
                 return -1;
             }
-        }
-        catch (java.util.InputMismatchException e){
+        } catch (java.util.InputMismatchException e) {
             System.out.println("Неверный ввод");
             return -1;
         }
     }
-    public static MailingAddress action2(){
+
+    /**
+     * @return Новый создаваемый заказ
+     */
+    public static MailingAddress action2() {
         Scanner scanner = new Scanner(System.in);
 
         String name;
@@ -234,14 +253,13 @@ public class Main {
         System.out.println("Введите улицу: ");
         street = scanner.nextLine();
 
-        try{
+        try {
             System.out.println("Введите номер дома: ");
             number = scanner.nextInt();
 
             System.out.println("Введите примерное расстояние до ближайшего филиала в км. (ex. 4.2) : ");
             distance = scanner.nextDouble();
-        }
-        catch (java.util.InputMismatchException e){
+        } catch (java.util.InputMismatchException e) {
             System.out.println("Введенные данные неккоректны, будет создан стандартный заказ");
             return new MailingAddress();
         }

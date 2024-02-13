@@ -29,7 +29,7 @@ public class MailingAddress {
                 + "\nУлица: " + street
                 + "\nДом: " + this.getNumber()
                 + "\nРасстояние от филиала: " + distance + "км"
-                + "\nПримерное время ожидания: " + this.getTime() + "\n";
+                + "\nПримерное время ожидания: " + this.getTime() + "ч" + "\n";
     }
 
     public String getName(){
