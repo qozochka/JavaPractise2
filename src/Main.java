@@ -5,6 +5,7 @@ import java.util.*;
  * @version 1.0
  */
 public class Main {
+
     public static void main(String[] args) {
         ArrayList<MailingAddress> container = new ArrayList<>();
         while (true) {
@@ -113,6 +114,7 @@ public class Main {
                         4) Номер дома.
                         5) Примерное расстояние.""" + "\nЧто хотите отредактировать: ");
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
         String choice = scanner.nextLine();
 
         try {
@@ -173,6 +175,7 @@ public class Main {
 
         System.out.print("Ввод: ");
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
         int value = -1;
         if (scanner.hasNextInt()) {
             value = scanner.nextInt();
@@ -190,6 +193,7 @@ public class Main {
     public static int navigateForListOfOrders(int containerLen) {
         System.out.print("0 - выйти\nВвод: ");
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
         String choice = scanner.nextLine();
         try {
             if (Integer.parseInt(choice) >= 0 && Integer.parseInt(choice) <= containerLen)
@@ -218,6 +222,7 @@ public class Main {
                 5) Сортировать по Расстоянию.
                 Ввод:""");
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
         String choice = scanner.nextLine();
         try {
             if (Integer.parseInt(choice) >= 0 && Integer.parseInt(choice) <= containerLen)
@@ -237,6 +242,7 @@ public class Main {
      */
     public static MailingAddress action2() {
         Scanner scanner = new Scanner(System.in);
+        scanner.useLocale(Locale.US);
 
         String name;
         String city;
