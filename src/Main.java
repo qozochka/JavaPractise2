@@ -2,7 +2,7 @@ import java.util.*;
 
 /**
  * @author ozerov_kirill
- * @version 1.0
+ * @version 1.1
  */
 public class Main {
 
@@ -13,36 +13,43 @@ public class Main {
             if (flag > 0 && flag < 7) {
                 switch (flag) {
                     case 5:
-                        int choice22 = navigateForListOfOrdersToSort(container.size());
-                        switch (choice22) {
+                        if (container.size() > 1) {
 
-                            case 1:
-                                Comparator<MailingAddress> comparatorString1
-                                        = (p1, p2) -> p2.getName().compareTo(p1.getName());
-                                container.sort(comparatorString1);
-                                System.out.println("Заказы отсортированы.");
-                                break;
-                            case 2:
-                                Comparator<MailingAddress> comparatorString2
-                                        = (p1, p2) -> p2.getCity().compareTo(p1.getCity());
-                                container.sort(comparatorString2);
-                                System.out.println("Заказы отсортированы.");
-                                break;
-                            case 3:
-                                Comparator<MailingAddress> comparatorString3
-                                        = (p1, p2) -> p2.getStreet().compareTo(p1.getStreet());
-                                container.sort(comparatorString3);
-                                System.out.println("Заказы отсортированы.");
-                                break;
-                            case 4:
-                                Comparator<MailingAddress> comparator4 = Comparator.comparingInt(MailingAddress::getNumber);
-                                container.sort(comparator4);
-                                System.out.println("Заказы отсортированы.");
-                                break;
-                            case 5:
-                                Comparator<MailingAddress> comparator5 = Comparator.comparingDouble(MailingAddress::getDistance);
-                                container.sort(comparator5);
-                                System.out.println("Заказы отсортированы.");
+                            int choice22 = navigateForListOfOrdersToSort(container.size());
+                            switch (choice22) {
+
+                                case 1:
+                                    Comparator<MailingAddress> comparatorString1
+                                            = (p1, p2) -> p2.getName().compareTo(p1.getName());
+                                    container.sort(comparatorString1);
+                                    System.out.println("Заказы отсортированы.");
+                                    break;
+                                case 2:
+                                    Comparator<MailingAddress> comparatorString2
+                                            = (p1, p2) -> p2.getCity().compareTo(p1.getCity());
+                                    container.sort(comparatorString2);
+                                    System.out.println("Заказы отсортированы.");
+                                    break;
+                                case 3:
+                                    Comparator<MailingAddress> comparatorString3
+                                            = (p1, p2) -> p2.getStreet().compareTo(p1.getStreet());
+                                    container.sort(comparatorString3);
+                                    System.out.println("Заказы отсортированы.");
+                                    break;
+                                case 4:
+                                    Comparator<MailingAddress> comparator4 = Comparator.comparingInt(MailingAddress::getNumber);
+                                    container.sort(comparator4);
+                                    System.out.println("Заказы отсортированы.");
+                                    break;
+                                case 5:
+                                    Comparator<MailingAddress> comparator5 = Comparator.comparingDouble(MailingAddress::getDistance);
+                                    container.sort(comparator5);
+                                    System.out.println("Заказы отсортированы.");
+                                    break;
+                            }
+                        }
+                        else{
+                            System.out.println("Список заказов соишком мал, чтобы его отсортировать!");
                         }
                         break;
 
