@@ -18,7 +18,7 @@ public class Main {
           case 5:
             if (container.size() > 1) {
 
-              int choice22 = navigateForListOfOrdersToSort(container.size());
+              int choice22 = navigateForListOfOrdersToSort();
               switch (choice22) {
                 case 1:
                   Comparator<MailingAddress> comparatorString1 =
