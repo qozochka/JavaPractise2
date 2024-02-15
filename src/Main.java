@@ -219,10 +219,9 @@ public class Main {
   }
 
   /**
-   * @param containerLen Колличество заказов
    * @return Выбор в промежуточном меню 2го уровня, либо "ошибка"
    */
-  public static int navigateForListOfOrdersToSort(int containerLen) {
+  public static int navigateForListOfOrdersToSort() {
     System.out.print(
         """
                 0 - выйти
