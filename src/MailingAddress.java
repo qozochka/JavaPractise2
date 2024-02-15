@@ -5,6 +5,7 @@ public class MailingAddress {
   private String street;
   private int number;
   private double distance;
+  private int index;
 
   MailingAddress() {
     name = "User";
@@ -14,12 +15,13 @@ public class MailingAddress {
     distance = 30.5;
   }
 
-  MailingAddress(String name, String city, String street, int number, double distance) {
+  MailingAddress(String name, String city, String street, int number, double distance, int index) {
     this.name = name;
     this.city = city;
     this.street = street;
     this.number = number;
     this.distance = distance;
+    this.index = index;
   }
 
   @Override
@@ -38,7 +40,10 @@ public class MailingAddress {
         + "\nПримерное время ожидания: "
         + this.getTime()
         + "ч"
-        + "\n";
+        + "\n"
+        + "Индекс: "
+        + index + "\n";
+
   }
 
   public String getName() {
@@ -85,11 +90,11 @@ public class MailingAddress {
     return (int) (2 + (this.distance / 10));
   }
 
-  //    static ArrayList<MailingAddress> getContainer(){
-  //        return container;
-  //    }
+  public int getIndex() {
+    return index;
+  }
 
-  //    public void addContainer(MailingAddress obj){
-  //        container.add(obj);
-  //    }
+  public void setIndex(int index) {
+    this.index = index;
+  }
 }

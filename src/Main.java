@@ -3,6 +3,8 @@ import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Locale;
 import java.util.InputMismatchException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author ozerov_kirill
@@ -94,7 +96,7 @@ public class Main {
 
           case 2:
             MailingAddress newUser = action2();
-            if (newUser.getNumber() >= 0 && newUser.getDistance() > 0) {
+            if (newUser.getNumber() >= 0 && newUser.getDistance() > 0 && checkerForIndex(newUser.getIndex())) {
               container.add(newUser);
               System.out.println("Заказ успешно добавлен.");
             } else {
@@ -121,7 +123,8 @@ public class Main {
                 2) Город.
                 3) Улицу.
                 4) Номер дома.
-                5) Примерное расстояние."""
+                5) Примерное расстояние.
+                6) Индекс"""
             + "\nЧто хотите отредактировать: ");
     Scanner scanner = new Scanner(System.in);
     scanner.useLocale(Locale.US);
@@ -156,6 +159,14 @@ public class Main {
               System.out.println("Неверное значение, детали не изменены.");
             }
             break;
+          case 6:
+            if (checkerForIndex(Integer.parseInt(newValue))){
+              obj.setIndex(Integer.parseInt(newValue));
+            }
+            else{
+              System.out.print("Неккоректный индекс");
+            }
+            break;
         }
       } else if (choice2 == 0) {
         container.remove(obj);
@@ -165,7 +176,7 @@ public class Main {
         return check;
       }
     } catch (InputMismatchException | NumberFormatException | IndexOutOfBoundsException e) {
-      System.out.println("Неверный ввод, заказ не изменен." + e);
+      System.out.println("Неверный ввод, заказ не изменен.");
     }
     return obj;
   }
@@ -247,6 +258,15 @@ public class Main {
     }
   }
 
+  public static boolean checkerForIndex(int index){
+    String stringOfIndex = String.valueOf(index);
+    String regex = "[1-9][1-9][1-9][1-9][1-9][1-9]";
+    Pattern pattern = Pattern.compile(regex);
+
+    Matcher matcher = pattern.matcher(stringOfIndex);
+    return matcher.matches();
+  }
+
   /**
    * @return Новый создаваемый заказ
    */
@@ -259,6 +279,7 @@ public class Main {
     String street;
     int number;
     double distance;
+    int index;
 
     System.out.println("Введите имя пользователя: ");
     name = scanner.nextLine();
@@ -275,10 +296,14 @@ public class Main {
 
       System.out.println("Введите примерное расстояние до ближайшего филиала в км. (ex. 4.2) : ");
       distance = scanner.nextDouble();
+
+      System.out.println("Введите ваш почтовый индекс (6 цифр): ");
+      index = scanner.nextInt();
+
     } catch (java.util.InputMismatchException e) {
       System.out.println("Введенные данные неккоректны, будет создан стандартный заказ");
       return new MailingAddress();
     }
-    return new MailingAddress(name, city, street, number, distance);
+    return new MailingAddress(name, city, street, number, distance, index);
   }
 }
